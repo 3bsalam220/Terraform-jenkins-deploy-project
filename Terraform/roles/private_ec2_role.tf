@@ -1,0 +1,54 @@
+resource "aws_iam_role" "private_ec2_role" {
+  name = "private-ec2-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action    = "sts:AssumeRole"
+      Effect    = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy_attachment" "private_ec2_ssm" {
+  role       = aws_iam_role.private_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_role_policy" "private_ec2_ecr_pull" {
+  name = "private-ec2-ecr-pull"
+  role = aws_iam_role.private_ec2_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "ecr:GetAuthorizationToken",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer"
+      ]
+      Resource = "*"
+    }]
+  })
+}
+
+resource "aws_iam_instance_profile" "private_ec2_profile" {
+  name = "private-ec2-profile"
+  role = aws_iam_role.private_ec2_role.name
+}
+
+resource "aws_iam_role_policy" "private_ec2_secrets" {
+  name = "private-ec2-secrets-access"
+  role = aws_iam_role.private_ec2_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["secretsmanager:GetSecretValue"]
+      Resource = "arn:aws:secretsmanager:us-east-1:*:secret:app/*"
+    }]
+  })
+}
