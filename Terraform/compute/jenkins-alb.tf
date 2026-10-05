@@ -11,7 +11,7 @@ resource "aws_alb_target_group" "jenkins_tg" {
  port = 8080
  target_type = "instance"
  protocol = "HTTP"
- protocol_version = "HTTP2"
+ protocol_version = "HTTP1"
  vpc_id = var.vpc_id
   health_check {
     path = "/login"

@@ -11,7 +11,7 @@ resource "aws_alb" "app_alb" {
 resource "aws_alb_target_group" "app_target" {
   name = "app-target"
   port = 3000
-  protocol_version = "HTTP2"
+  protocol_version = "HTTP1"
   protocol = "HTTP"
   vpc_id = var.vpc_id
   target_type = "instance"

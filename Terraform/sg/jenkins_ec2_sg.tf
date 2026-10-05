@@ -15,7 +15,6 @@ resource "aws_vpc_security_group_ingress_rule" "n" {
 resource "aws_vpc_security_group_egress_rule" "m" {
   security_group_id = aws_security_group.Jenkins_ec2_sg.id
   ip_protocol = "-1"
-  from_port = 0
-  to_port = 0
+  
   cidr_ipv4 = "0.0.0.0/0"
 }
