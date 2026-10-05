@@ -7,8 +7,8 @@ output "private_ec2_role" {
 
 
 output "jenkins_role-arn" {
-  value=aws_iam_instance_profile.jenkins_profile.arn
+  value=aws_iam_role.jenkins_role.arn
 }
 output "private_ec2_role-arn" {
-  value = aws_iam_instance_profile.private_ec2_profile.arn
+  value = aws_iam_role.private_ec2_role.arn
 }

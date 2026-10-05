@@ -1,5 +1,5 @@
-resource "aws_ecr_repository" "My-Repo" {
-  name = "APP-Repo"
+resource "aws_ecr_repository" "myrepo" {
+  name = "app-repo"
   force_delete = true
   image_scanning_configuration {
     scan_on_push = true
@@ -11,7 +11,7 @@ resource "aws_ecr_repository" "My-Repo" {
 }
 
 resource "aws_ecr_lifecycle_policy" "name" {
-  repository = aws_ecr_repository.My-Repo.name
+  repository = aws_ecr_repository.myrepo.name
   policy = jsonencode({
     rules = [{
       rulePriority = 1
@@ -28,7 +28,7 @@ resource "aws_ecr_lifecycle_policy" "name" {
 
 
 resource "aws_ecr_repository_policy" "My-Repo-Policy" {
-  repository = aws_ecr_repository.My-Repo.name
+  repository = aws_ecr_repository.myrepo.name
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [{

@@ -17,8 +17,7 @@ referenced_security_group_id =aws_security_group.APP-ALB-SG.id
 resource "aws_vpc_security_group_egress_rule" "l" {
   security_group_id = aws_security_group.private-EC2-SG.id
   ip_protocol = "-1"
-  to_port = 0
-  from_port = 0
+  
   
   cidr_ipv4 = "0.0.0.0/0"
 }
