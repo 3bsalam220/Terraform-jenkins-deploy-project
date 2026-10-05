@@ -1,0 +1,3 @@
+# group_vars/jenkins.yml
+jenkins_port: 8080
+java_package: java-17-amazon-corretto

@@ -1,0 +1,7 @@
+- name: Configure Jenkins server
+  hosts: jenkins          # which inventory group to target
+  become: yes               # run tasks with sudo/root privileges
+  roles:
+    - common                 # run common role's tasks first
+    - docker                  # then docker role's tasks
+    - jenkins                  # then jenkins role's tasks
